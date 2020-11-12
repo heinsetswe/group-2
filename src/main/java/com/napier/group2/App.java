@@ -51,6 +51,7 @@ public class App
         }
     }
 
+    //**All the cities in the world organised by largest population to smallest.
     public ArrayList<City> getCity()
     {
         try {
@@ -84,13 +85,61 @@ public class App
 
     public void displayCitybyPopu(ArrayList<City> citylist)
     {
+        System.out.println("All the cities in the world organised by largest population to smallest.");
         System.out.println(String.format("%-15s %-10s %-15s %-25s ","Name", "Country", "District", "Population"));
         System.out.println(String.format("%-15s %-10s %-15s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
         for ( City city : citylist)
         {
              System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
         }
+        System.out.println("===================================================================================================");
     }
+
+    //** All the cities in a continent organised by largest population to smallest.
+    public ArrayList<City> getCitycon()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.Countrycode = country.Code " + "AND country.Continent = 'Asia' " + "order by city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> citylistcon = new ArrayList<City>();
+            while (rset.next()) {
+                City citycon = new City();
+                citycon.Name = rset.getString("Name");
+                citycon.CountryCode = rset.getString("CountryCode");
+                citycon.District = rset.getString("District");
+                citycon.Population = rset.getInt("Population");
+                citylistcon.add(citycon);
+            }
+            return citylistcon;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public void displayCitycon(ArrayList<City> citylistcon)
+    {
+        System.out.println("All the cities in a continent organised by largest population to smallest.");
+        System.out.println(String.format("%-15s %-10s %-15s %-25s ","Name", "Country", "District", "Population"));
+        System.out.println(String.format("%-15s %-10s %-15s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
+        for ( City city : citylistcon)
+        {
+            System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
+        }
+        System.out.println("===================================================================================================");
+    }
+
+
 
     /**
      * Disconnect from the MySQL database.
@@ -120,10 +169,12 @@ public class App
         a.connect();
 
         // Get countries
-        ArrayList<City> citty = a.getCity();
+        ArrayList<City> city = a.getCity();
+        ArrayList<City> citycon = a.getCitycon();
 
         // Display countries
-        a.displayCitybyPopu(citty);
+        a.displayCitybyPopu(city);
+        a.displayCitycon(citycon);
 
         // Disconnect from database
         a.disconnect();
