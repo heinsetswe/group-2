@@ -139,6 +139,51 @@ public class App
         }
     }
 
+    //**All the countries in a region organised by largest population to smallest.**//
+    public ArrayList<Country> getCountryreg()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Code, Name, Continent, Region, Population, Capital FROM country WHERE Region = 'Central Africa' " + "order by Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<Country> ctylistreg = new ArrayList<Country>();
+            while (rset.next()) {
+                Country ctyreg = new Country();
+                ctyreg.Code = rset.getString("Code");
+                ctyreg.Name = rset.getString("Name");
+                ctyreg.Continent = rset.getString("Continent");
+                ctyreg.Region = rset.getString("Region");
+                ctyreg.Population = rset.getInt("Population");
+                ctyreg.Capital = rset.getInt("Capital");
+                ctylistreg.add(ctyreg);
+            }
+            return ctylistreg;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public void displayCountryreg(ArrayList<Country> ctylistreg)
+    {
+        System.out.println("All the countries in the world organised by largest population to smallest.");
+        System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","Code", "Name", "Continent", "Region", "Population", "Capital"));
+        System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","~~~~", "~~~~", "~~~~~~~~~", "~~~~~~", "~~~~~~~~~~", "~~~~~~~"));
+        for ( Country coty : ctylistreg)
+        {
+            System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s", coty.Code, coty.Name, coty.Continent, coty.Region, coty.Population, coty.Capital));
+        }
+    }
+
     /**
      * Disconnect from the MySQL database.
      */
@@ -169,9 +214,11 @@ public class App
         // Get countries
         ArrayList<Country> cty = a.getCountrybyPopu();
         ArrayList<Country> ctycon = a.getCountrycon();
+        ArrayList<Country> ctyreg = a.getCountryreg();
         // Display countries
         a.displayCountrybyPopu(cty);
         a.displayCountrycon(ctycon);
+        a.displayCountryreg(ctyreg);
 
         // Disconnect from database
         a.disconnect();
