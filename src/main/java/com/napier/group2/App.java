@@ -51,7 +51,7 @@ public class App
         }
     }
 
-    public ArrayList<Country> getCountry()
+    public ArrayList<Country> getCountrybyPopu()
     {
         try {
             // Create an SQL statement
@@ -84,13 +84,58 @@ public class App
         }
     }
 
+    public ArrayList<Country> getCountrycon()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Code, Name, Continent, Region, Population, Capital FROM country WHERE Continent = 'Asia' " + "order by Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<Country> ctylistcon = new ArrayList<Country>();
+            while (rset.next()) {
+                Country ctycon = new Country();
+                ctycon.Code = rset.getString("Code");
+                ctycon.Name = rset.getString("Name");
+                ctycon.Continent = rset.getString("Continent");
+                ctycon.Region = rset.getString("Region");
+                ctycon.Population = rset.getInt("Population");
+                ctycon.Capital = rset.getInt("Capital");
+                ctylistcon.add(ctycon);
+            }
+            return ctylistcon;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
     public void displayCountrybyPopu(ArrayList<Country> ctylist)
     {
+        System.out.println("All the countries in the world organised by largest population to smallest.");
         System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","Code", "Name", "Continent", "Region", "Population", "Capital"));
         System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","~~~~", "~~~~", "~~~~~~~~~", "~~~~~~", "~~~~~~~~~~", "~~~~~~~"));
         for ( Country coty : ctylist)
         {
              System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s", coty.Code, coty.Name, coty.Continent, coty.Region, coty.Population, coty.Capital));
+        }
+    }
+
+    public void displayCountrycon(ArrayList<Country> ctylistcon)
+    {
+        System.out.println("All the countries in a continent organised by largest population to smallest.");
+        System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","Code", "Name", "Continent", "Region", "Population", "Capital"));
+        System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","~~~~", "~~~~", "~~~~~~~~~", "~~~~~~", "~~~~~~~~~~", "~~~~~~~"));
+        for ( Country coty : ctylistcon)
+        {
+            System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s", coty.Code, coty.Name, coty.Continent, coty.Region, coty.Population, coty.Capital));
         }
     }
 
@@ -122,10 +167,11 @@ public class App
         a.connect();
 
         // Get countries
-        ArrayList<Country> cty = a.getCountry();
-
+        ArrayList<Country> cty = a.getCountrybyPopu();
+        ArrayList<Country> ctycon = a.getCountrycon();
         // Display countries
         a.displayCountrybyPopu(cty);
+        a.displayCountrycon(ctycon);
 
         // Disconnect from database
         a.disconnect();
