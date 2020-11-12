@@ -51,30 +51,28 @@ public class App
         }
     }
 
-    public ArrayList<Country> getCountry()
+    public ArrayList<City> getCity()
     {
         try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT Code, Name, Continent, Region, Population, Capital FROM country order by Population DESC";
+                    "SELECT Name, Countrycode, District, Population FROM city order by Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new country if valid.
             // Check one is returned
-            ArrayList<Country> ctylist = new ArrayList<Country>();
+            ArrayList<City> citylist = new ArrayList<City>();
             while (rset.next()) {
-                Country cty = new Country();
-                cty.Code = rset.getString("Code");
-                cty.Name = rset.getString("Name");
-                cty.Continent = rset.getString("Continent");
-                cty.Region = rset.getString("Region");
-                cty.Population = rset.getInt("Population");
-                cty.Capital = rset.getInt("Capital");
-                ctylist.add(cty);
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                citylist.add(city);
             }
-            return ctylist;
+            return citylist;
 
         } catch (Exception e)
         {
@@ -84,13 +82,13 @@ public class App
         }
     }
 
-    public void displayCountrybyPopu(ArrayList<Country> ctylist)
+    public void displayCitybyPopu(ArrayList<City> citylist)
     {
-        System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","Code", "Name", "Continent", "Region", "Population", "Capital"));
-        System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","~~~~", "~~~~", "~~~~~~~~~", "~~~~~~", "~~~~~~~~~~", "~~~~~~~"));
-        for ( Country coty : ctylist)
+        System.out.println(String.format("%-15s %-10s %-15s %-25s ","Name", "Country", "District", "Population"));
+        System.out.println(String.format("%-15s %-10s %-15s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
+        for ( City city : citylist)
         {
-             System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s", coty.Code, coty.Name, coty.Continent, coty.Region, coty.Population, coty.Capital));
+             System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
         }
     }
 
@@ -122,10 +120,10 @@ public class App
         a.connect();
 
         // Get countries
-        ArrayList<Country> cty = a.getCountry();
+        ArrayList<City> citty = a.getCity();
 
         // Display countries
-        a.displayCountrybyPopu(cty);
+        a.displayCitybyPopu(citty);
 
         // Disconnect from database
         a.disconnect();
