@@ -1,4 +1,4 @@
-# USE CASE: 1 Produce a Report on the all the countries in the world organised by largest population to smalles
+# USE CASE: 1 Produce a Report on the all the countries in the world organised by largest population to smallest
 
 ## CHARACTERISTIC INFORMATION
 
