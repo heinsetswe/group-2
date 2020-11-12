@@ -50,7 +50,100 @@ public class App
             }
         }
     }
+    ///////////////////////
+    //**All the cities in a district organised by largest population to smallest.
+    public ArrayList<City> getdistrict()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.Countrycode = country.Code " + "AND country.name = 'United States' " + "order by city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> citydistrict = new ArrayList<City>();
+            while (rset.next()) {
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                citydistrict.add(city);
+            }
+            return citydistrict;
 
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public void displaydistrict(ArrayList<City> citylistcountry)
+    {
+        System.out.println("All the cities in the world organised by largest population to smallest.");
+        System.out.println(String.format("%-15s %-10s %-15s %-25s ","Name", "Country", "District", "Population"));
+        System.out.println(String.format("%-15s %-10s %-15s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
+        for ( City city : citylistcountry)
+        {
+            System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
+        }
+        System.out.println("===================================================================================================");
+    }
+
+    //** All the cities in a district organised by largest population to smallest.
+    ///////////////////////
+//**All the countries in the world organised by largest population to smallest.
+    public ArrayList<City> getCitycountry()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.Countrycode = country.Code " + "AND country.name = 'United States' " + "order by city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> countrylistcountry = new ArrayList<City>();
+            while (rset.next()) {
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                countrylistcountry.add(city);
+            }
+            return countrylistcountry;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public void displayCitycountry(ArrayList<City> citylistcountry)
+    {
+        System.out.println("All the cities in the world organised by largest population to smallest.");
+        System.out.println(String.format("%-15s %-10s %-15s %-25s ","Name", "Country", "District", "Population"));
+        System.out.println(String.format("%-15s %-10s %-15s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
+        for ( City city : citylistcountry)
+        {
+            System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
+        }
+        System.out.println("===================================================================================================");
+    }
+
+    //** All the countries in the world organised by largest population to smallest.
+
+//////////////////////////////////////////////////////////
     //**All the cities in the world organised by largest population to smallest.
     public ArrayList<City> getCity()
     {
@@ -171,10 +264,14 @@ public class App
         // Get countries
         ArrayList<City> city = a.getCity();
         ArrayList<City> citycon = a.getCitycon();
+        ArrayList<City> citycountry = a.getCitycountry();
+        ArrayList<City> district = a.getdistrict();
 
         // Display countries
         a.displayCitybyPopu(city);
         a.displayCitycon(citycon);
+        a.displayCitycountry(citycountry);
+        a.displaydistrict(district);
 
         // Disconnect from database
         a.disconnect();
