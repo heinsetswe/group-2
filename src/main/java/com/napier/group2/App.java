@@ -85,12 +85,12 @@ public class App
 
     public void displaydistrict(ArrayList<City> citylistcountry)
     {
-        System.out.println("All the cities in the world organised by largest population to smallest.");
-        System.out.println(String.format("%-15s %-10s %-15s %-25s ","Name", "Country", "District", "Population"));
-        System.out.println(String.format("%-15s %-10s %-15s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
+        System.out.println("All the cities in a district organised by largest population to smallest.");
+        System.out.println(String.format("%-45s %-10s %-25s %-25s ","Name", "Country", "District", "Population"));
+        System.out.println(String.format("%-45s %-10s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
         for ( City city : citylistcountry)
         {
-            System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
+            System.out.println(String.format("%-45s %-10s %-25s %-25s", city.Name, city.CountryCode, city.District, city.Population));
         }
         System.out.println("===================================================================================================");
         System.out.println("\n");
@@ -98,7 +98,7 @@ public class App
 
     //** All the cities in a district organised by largest population to smallest.
     ///////////////////////
-//**All the countries in the world organised by largest population to smallest.
+//**All the cities in a country organised by largest population to smallest.
     public ArrayList<City> getCitycountry()
     {
         try {
@@ -132,12 +132,12 @@ public class App
 
     public void displayCitycountry(ArrayList<City> citylistcountry)
     {
-        System.out.println("All the cities in the world organised by largest population to smallest.");
-        System.out.println(String.format("%-15s %-10s %-15s %-25s ","Name", "Country", "District", "Population"));
-        System.out.println(String.format("%-15s %-10s %-15s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
+        System.out.println("All the cities in a country organised by largest population to smallest.");
+        System.out.println(String.format("%-45s %-10s %-25s %-25s ","Name", "Country", "District", "Population"));
+        System.out.println(String.format("%-45s %-10s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
         for ( City city : citylistcountry)
         {
-            System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
+            System.out.println(String.format("%-45s %-10s %-25s %-25s", city.Name, city.CountryCode, city.District, city.Population));
         }
         System.out.println("===================================================================================================");
         System.out.println("\n");
@@ -181,11 +181,11 @@ public class App
     public void displayCitybyPopu(ArrayList<City> citylist)
     {
         System.out.println("All the cities in the world organised by largest population to smallest.");
-        System.out.println(String.format("%-15s %-10s %-15s %-25s ","Name", "Country", "District", "Population"));
-        System.out.println(String.format("%-15s %-10s %-15s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
+        System.out.println(String.format("%-45s %-10s %-25s %-25s ","Name", "Country", "District", "Population"));
+        System.out.println(String.format("%-45s %-10s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
         for ( City city : citylist)
         {
-             System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
+             System.out.println(String.format("%-45s %-10s %-25s %-25s", city.Name, city.CountryCode, city.District, city.Population));
         }
         System.out.println("===================================================================================================");
         System.out.println("\n");
@@ -226,11 +226,11 @@ public class App
     public void displayCitycon(ArrayList<City> citylistcon)
     {
         System.out.println("All the cities in a continent organised by largest population to smallest.");
-        System.out.println(String.format("%-15s %-10s %-15s %-25s ","Name", "Country", "District", "Population"));
-        System.out.println(String.format("%-15s %-10s %-15s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
+        System.out.println(String.format("%-45s %-10s %-25s %-25s ","Name", "Country", "District", "Population"));
+        System.out.println(String.format("%-45s %-10s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
         for ( City city : citylistcon)
         {
-            System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
+            System.out.println(String.format("%-45s %-10s %-25s %-25s", city.Name, city.CountryCode, city.District, city.Population));
         }
         System.out.println("===================================================================================================");
         System.out.println("\n");
@@ -270,12 +270,12 @@ public class App
 
     public void displayCityreg(ArrayList<City> citylistreg)
     {
-        System.out.println("All the cities in a continent organised by largest population to smallest.");
-        System.out.println(String.format("%-15s %-10s %-15s %-25s ","Name", "Country", "District", "Population"));
-        System.out.println(String.format("%-15s %-10s %-15s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
+        System.out.println("All the cities in a region organised by largest population to smallest.");
+        System.out.println(String.format("%-45s %-10s %-25s %-25s ","Name", "Country", "District", "Population"));
+        System.out.println(String.format("%-45s %-10s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
         for ( City city : citylistreg)
         {
-            System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
+            System.out.println(String.format("%-45s %-10s %-25s %-25s", city.Name, city.CountryCode, city.District, city.Population));
         }
         System.out.println("===================================================================================================");
         System.out.println("\n");
