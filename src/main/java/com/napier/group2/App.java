@@ -59,7 +59,7 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * " + "FROM city, country WHERE city.Countrycode = country.Code " + "AND country.name = 'United States' " + "order by city.Population DESC";
+                    "SELECT Name, Countrycode, District, Population FROM city WHERE District = 'Rio de Janeiro' " + "order by Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new country if valid.
@@ -93,6 +93,7 @@ public class App
             System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
         }
         System.out.println("===================================================================================================");
+        System.out.println("\n");
     }
 
     //** All the cities in a district organised by largest population to smallest.
@@ -139,6 +140,7 @@ public class App
             System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
         }
         System.out.println("===================================================================================================");
+        System.out.println("\n");
     }
 
     //** All the countries in the world organised by largest population to smallest.
@@ -186,6 +188,7 @@ public class App
              System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
         }
         System.out.println("===================================================================================================");
+        System.out.println("\n");
     }
 
     //** All the cities in a continent organised by largest population to smallest.
@@ -230,6 +233,7 @@ public class App
             System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
         }
         System.out.println("===================================================================================================");
+        System.out.println("\n");
     }
 
 
@@ -265,13 +269,13 @@ public class App
         ArrayList<City> city = a.getCity();
         ArrayList<City> citycon = a.getCitycon();
         ArrayList<City> citycountry = a.getCitycountry();
-        ArrayList<City> district = a.getdistrict();
+        ArrayList<City> citydistrict = a.getdistrict();
 
         // Display countries
         a.displayCitybyPopu(city);
         a.displayCitycon(citycon);
         a.displayCitycountry(citycountry);
-        a.displaydistrict(district);
+        a.displaydistrict(citydistrict);
 
         // Disconnect from database
         a.disconnect();
