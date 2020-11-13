@@ -4,11 +4,11 @@ actor Org as "Organisation"
 
 rectangle Database
 
-rectangle "Countries Ranks" {
-    usecase UC4 as "Get ranks of countries
+rectangle "Cities Ranks" {
+    usecase UC4 as "Get ranks of cities
     based on population"
 
-    usecase UCa as "Print Countries"
+    usecase UCa as "Print Cities"
 
     Org - UC4
     UC4 ..> UCa : include
