@@ -1,5 +1,5 @@
 @startuml
-
+left to right direction
 actor Org as "Organisation"
 
 rectangle "Population in the World" {
@@ -21,14 +21,14 @@ rectangle "Population in the World" {
     by largest population to smallest."
 
 
-    Org -> UC1
-    Org -> UC2
-    Org -> UC3
-    Org -> UC4
-    Org -> UC5
-    Org -> UC6
-    Org -> UC7
-    Org -> UC8
+    Org ---> UC1
+    Org ---> UC2
+    Org ---> UC3
+    Org ---> UC4
+    Org ---> UC5
+    Org ---> UC6
+    Org ---> UC7
+    Org ---> UC8
 
 }
 
