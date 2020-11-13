@@ -236,6 +236,51 @@ public class App
         System.out.println("\n");
     }
 
+    //** All the cities in a region organised by largest population to smallest.
+    public ArrayList<City> getCityreg()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.Countrycode = country.Code " + "AND country.Region = 'Central America' " + "order by city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> citylistreg = new ArrayList<City>();
+            while (rset.next()) {
+                City citycon = new City();
+                citycon.Name = rset.getString("Name");
+                citycon.CountryCode = rset.getString("CountryCode");
+                citycon.District = rset.getString("District");
+                citycon.Population = rset.getInt("Population");
+                citylistreg.add(citycon);
+            }
+            return citylistreg;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public void displayCityreg(ArrayList<City> citylistreg)
+    {
+        System.out.println("All the cities in a continent organised by largest population to smallest.");
+        System.out.println(String.format("%-15s %-10s %-15s %-25s ","Name", "Country", "District", "Population"));
+        System.out.println(String.format("%-15s %-10s %-15s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
+        for ( City city : citylistreg)
+        {
+            System.out.println(String.format("%-15s %-10s %-15s %-25s", city.Name, city.CountryCode, city.District, city.Population));
+        }
+        System.out.println("===================================================================================================");
+        System.out.println("\n");
+    }
+
 
 
     /**
@@ -270,12 +315,14 @@ public class App
         ArrayList<City> citycon = a.getCitycon();
         ArrayList<City> citycountry = a.getCitycountry();
         ArrayList<City> citydistrict = a.getdistrict();
+        ArrayList<City> cityreg = a.getCityreg();
 
         // Display countries
         a.displayCitybyPopu(city);
         a.displayCitycon(citycon);
         a.displayCitycountry(citycountry);
         a.displaydistrict(citydistrict);
+        a.displayCityreg(cityreg);
 
         // Disconnect from database
         a.disconnect();
