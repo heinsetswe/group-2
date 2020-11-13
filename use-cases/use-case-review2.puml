@@ -3,21 +3,21 @@ left to right direction
 actor Org as "Organisation"
 
 rectangle "Population in the World" {
-    usecase UC1 as "All the countries in the world organised
+    usecase UC1 as "display all the countries in the world organised
     by largest population to smallest."
-    usecase UC2 as "All the countries in a continent organised
+    usecase UC2 as "display all the countries in a continent organised
     by largest population to smallest."
-    usecase UC3 as "All the countries in a region organised
+    usecase UC3 as "display all the countries in a region organised
     by largest population to smallest."
-    usecase UC4 as "All the cities in the world organised
+    usecase UC4 as "display all the cities in the world organised
     by largest population to smallest."
-    usecase UC5 as "All the cities in a continent organised
+    usecase UC5 as "display all the cities in a continent organised
     by largest population to smallest."
-    usecase UC6 as "All the cities in a region organised
+    usecase UC6 as "display all the cities in a region organised
     by largest population to smallest."
-    usecase UC7 as "All the cities in a country organised
+    usecase UC7 as "display all the cities in a country organised
     by largest population to smallest."
-    usecase UC8 as "All the cities in a district organised
+    usecase UC8 as "display all the cities in a district organised
     by largest population to smallest."
 
 
