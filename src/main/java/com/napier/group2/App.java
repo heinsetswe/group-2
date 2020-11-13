@@ -125,9 +125,9 @@ public class App
         for ( Country coty : ctylist)
         {
              System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s", coty.Code, coty.Name, coty.Continent, coty.Region, coty.Population, coty.Capital));
-            System.out.println("===================================================================================================");
-            System.out.println("\n");
         }
+        System.out.println("===================================================================================================");
+        System.out.println("\n");
     }
 
     public void displayCountrycon(ArrayList<Country> ctylistcon)
@@ -138,9 +138,9 @@ public class App
         for ( Country coty : ctylistcon)
         {
             System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s", coty.Code, coty.Name, coty.Continent, coty.Region, coty.Population, coty.Capital));
-            System.out.println("===================================================================================================");
-            System.out.println("\n");
         }
+        System.out.println("===================================================================================================");
+        System.out.println("\n");
     }
 
     //**All the countries in a region organised by largest population to smallest.**//
@@ -185,9 +185,9 @@ public class App
         for ( Country coty : ctylistreg)
         {
             System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s", coty.Code, coty.Name, coty.Continent, coty.Region, coty.Population, coty.Capital));
-            System.out.println("===================================================================================================");
-            System.out.println("\n");
         }
+        System.out.println("===================================================================================================");
+        System.out.println("\n");
     }
 
     /**
