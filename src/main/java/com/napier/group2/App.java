@@ -281,6 +281,51 @@ public class App
         System.out.println("\n");
     }
 
+    //All the capital cities in the world organised by largest population to smallest.
+    public ArrayList<City> getCapitalbyPopu()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.ID = country.Capital " +  "order by city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> capitalctylist = new ArrayList<City>();
+            while (rset.next()) {
+                City citycon = new City();
+                citycon.Name = rset.getString("city.Name");
+                citycon.CountryCode = rset.getString("city.CountryCode");
+                citycon.District = rset.getString("city.District");
+                citycon.Population = rset.getInt("city.Population");
+                capitalctylist.add(citycon);
+            }
+            return capitalctylist;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public void displayCapitalbyPopu(ArrayList<City> capitalctylist)
+    {
+        System.out.println("All the capital cities in the world organised by largest population to smallest.");
+        System.out.println(String.format("%-45s %-35s %-25s ","Name", "Country", "Population"));
+        System.out.println(String.format("%-45s %-35s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~~~"));
+        for ( City city : capitalctylist)
+        {
+            System.out.println(String.format("%-45s %-35s %-25s", city.Name, city.CountryCode, city.Population));
+        }
+        System.out.println("===================================================================================================");
+        System.out.println("\n");
+    }
+
 
 
     /**
@@ -316,6 +361,7 @@ public class App
         ArrayList<City> citycountry = a.getCitycountry();
         ArrayList<City> citydistrict = a.getdistrict();
         ArrayList<City> cityreg = a.getCityreg();
+        ArrayList<City> capitalcty = a.getCapitalbyPopu();
 
         // Display countries
         a.displayCitybyPopu(city);
@@ -323,6 +369,7 @@ public class App
         a.displayCitycountry(citycountry);
         a.displaydistrict(citydistrict);
         a.displayCityreg(cityreg);
+        a.displayCapitalbyPopu(capitalcty);
 
         // Disconnect from database
         a.disconnect();
