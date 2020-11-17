@@ -6,26 +6,56 @@ public class City {
     /**
      * City ID
      */
-    public int ID;
+    private int ID;
+    public int getID(){
+        return ID;
+    }
+    public void setID(int attribute){
+        this.ID = attribute;
+    }
 
     /**
      * City name
      */
-    public String Name;
+    private String Name;
+    public String getName(){
+        return Name;
+    }
+    public void setName(String attribute){
+        this.Name = attribute;
+    }
 
     /**
      * Country code
      */
-    public String CountryCode;
+    private String CountryCode;
+    public String getCountryCode(){
+        return CountryCode;
+    }
+    public void setCountryCode(String attribute){
+        this.CountryCode = attribute;
+    }
 
     /**
      * District of country
      */
-    public String District;
+    private String District;
+    public String getDistrict(){
+        return District;
+    }
+    public void setDistrict(String attribute){
+        this.District = attribute;
+    }
 
     /**
      * Population of city
      */
-    public int Population;
+    private int Population;
+    public int getPopulation(){
+        return Population;
+    }
+    public void setPopulation(int attribute){
+        this.Population = attribute;
+    }
 
 }
