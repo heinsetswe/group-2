@@ -96,8 +96,7 @@ public class App
         System.out.println("\n");
     }
 
-    //** All the cities in a district organised by largest population to smallest.
-    ///////////////////////
+
 //**All the cities in a country organised by largest population to smallest.
     public ArrayList<City> getCitycountry()
     {
@@ -334,7 +333,7 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * " + "FROM city, country WHERE city.ID = country.Capital " + "AND country.Continent = 'Asia' " + "order by city.Population DESC";
+                    "SELECT * " + "FROM city, country WHERE city.ID = country.Capital " + "AND country.Continent = 'Europe' " + "order by city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new country if valid.
@@ -364,6 +363,51 @@ public class App
         System.out.println(String.format("%-45s %-35s %-25s ","Name", "Country", "Population"));
         System.out.println(String.format("%-45s %-35s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~~~"));
         for ( City city : capitalctycon)
+        {
+            System.out.println(String.format("%-45s %-35s %-25s", city.Name, city.CountryCode, city.Population));
+        }
+        System.out.println("===================================================================================================");
+        System.out.println("\n");
+    }
+
+    //All the capital cities in a region organised by largest to smallest.
+    public ArrayList<City> getCapitalreg()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.ID = country.Capital " + "AND country.Region = 'Southeast Asia' " + "order by city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> capitalctyreg = new ArrayList<City>();
+            while (rset.next()) {
+                City citycon = new City();
+                citycon.Name = rset.getString("city.Name");
+                citycon.CountryCode = rset.getString("city.CountryCode");
+                citycon.District = rset.getString("city.District");
+                citycon.Population = rset.getInt("city.Population");
+                capitalctyreg.add(citycon);
+            }
+            return capitalctyreg;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public void displayCapitalreg(ArrayList<City> capitalctyreg)
+    {
+        System.out.println("All the capital cities in a region organised by largest to smallest.");
+        System.out.println(String.format("%-45s %-35s %-25s ","Name", "Country", "Population"));
+        System.out.println(String.format("%-45s %-35s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~~~"));
+        for ( City city : capitalctyreg)
         {
             System.out.println(String.format("%-45s %-35s %-25s", city.Name, city.CountryCode, city.Population));
         }
@@ -406,6 +450,7 @@ public class App
         ArrayList<City> cityreg = a.getCityreg();
         ArrayList<City> capitalcty = a.getCapitalbyPopu();
         ArrayList<City> capitalcon = a.getCapitalcon();
+        ArrayList<City> capitalreg = a.getCapitalreg();
 
         // Display countries
         a.displayCitybyPopu(city);
@@ -415,6 +460,7 @@ public class App
         a.displayCityreg(cityreg);
         a.displayCapitalbyPopu(capitalcty);
         a.displayCapitalcon(capitalcon);
+        a.displayCapitalreg(capitalreg);
 
         // Disconnect from database
         a.disconnect();
