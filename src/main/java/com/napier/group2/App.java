@@ -67,10 +67,10 @@ public class App
             ArrayList<City> citydistrict = new ArrayList<City>();
             while (rset.next()) {
                 City city = new City();
-                city.Name = rset.getString("Name");
-                city.CountryCode = rset.getString("CountryCode");
-                city.District = rset.getString("District");
-                city.Population = rset.getInt("Population");
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
                 citydistrict.add(city);
             }
             return citydistrict;
@@ -83,20 +83,8 @@ public class App
         }
     }
 
-    public void displaydistrict(ArrayList<City> citylistcountry)
-    {
-        System.out.println("All the cities in a district organised by largest population to smallest.");
-        System.out.println(String.format("%-45s %-10s %-25s %-25s ","Name", "Country", "District", "Population"));
-        System.out.println(String.format("%-45s %-10s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
-        for ( City city : citylistcountry)
-        {
-            System.out.println(String.format("%-45s %-10s %-25s %-25s", city.Name, city.CountryCode, city.District, city.Population));
-        }
-        System.out.println("===================================================================================================");
-        System.out.println("\n");
-    }
-
-
+    //** All the cities in a district organised by largest population to smallest.
+    ///////////////////////
 //**All the cities in a country organised by largest population to smallest.
     public ArrayList<City> getCitycountry()
     {
@@ -113,10 +101,10 @@ public class App
             ArrayList<City> countrylistcountry = new ArrayList<City>();
             while (rset.next()) {
                 City city = new City();
-                city.Name = rset.getString("Name");
-                city.CountryCode = rset.getString("CountryCode");
-                city.District = rset.getString("District");
-                city.Population = rset.getInt("Population");
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
                 countrylistcountry.add(city);
             }
             return countrylistcountry;
@@ -129,22 +117,7 @@ public class App
         }
     }
 
-    public void displayCitycountry(ArrayList<City> citylistcountry)
-    {
-        System.out.println("All the cities in a country organised by largest population to smallest.");
-        System.out.println(String.format("%-45s %-10s %-25s %-25s ","Name", "Country", "District", "Population"));
-        System.out.println(String.format("%-45s %-10s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
-        for ( City city : citylistcountry)
-        {
-            System.out.println(String.format("%-45s %-10s %-25s %-25s", city.Name, city.CountryCode, city.District, city.Population));
-        }
-        System.out.println("===================================================================================================");
-        System.out.println("\n");
-    }
-
-    //** All the countries in the world organised by largest population to smallest.
-
-//////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
     //**All the cities in the world organised by largest population to smallest.
     public ArrayList<City> getCity()
     {
@@ -161,10 +134,10 @@ public class App
             ArrayList<City> citylist = new ArrayList<City>();
             while (rset.next()) {
                 City city = new City();
-                city.Name = rset.getString("Name");
-                city.CountryCode = rset.getString("CountryCode");
-                city.District = rset.getString("District");
-                city.Population = rset.getInt("Population");
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
                 citylist.add(city);
             }
             return citylist;
@@ -175,19 +148,6 @@ public class App
             System.out.println("Failed to get country details");
             return null;
         }
-    }
-
-    public void displayCitybyPopu(ArrayList<City> citylist)
-    {
-        System.out.println("All the cities in the world organised by largest population to smallest.");
-        System.out.println(String.format("%-45s %-10s %-25s %-25s ","Name", "Country", "District", "Population"));
-        System.out.println(String.format("%-45s %-10s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
-        for ( City city : citylist)
-        {
-             System.out.println(String.format("%-45s %-10s %-25s %-25s", city.Name, city.CountryCode, city.District, city.Population));
-        }
-        System.out.println("===================================================================================================");
-        System.out.println("\n");
     }
 
     //** All the cities in a continent organised by largest population to smallest.
@@ -205,12 +165,12 @@ public class App
             // Check one is returned
             ArrayList<City> citylistcon = new ArrayList<City>();
             while (rset.next()) {
-                City citycon = new City();
-                citycon.Name = rset.getString("Name");
-                citycon.CountryCode = rset.getString("CountryCode");
-                citycon.District = rset.getString("District");
-                citycon.Population = rset.getInt("Population");
-                citylistcon.add(citycon);
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                citylistcon.add(city);
             }
             return citylistcon;
 
@@ -220,19 +180,6 @@ public class App
             System.out.println("Failed to get country details");
             return null;
         }
-    }
-
-    public void displayCitycon(ArrayList<City> citylistcon)
-    {
-        System.out.println("All the cities in a continent organised by largest population to smallest.");
-        System.out.println(String.format("%-45s %-10s %-25s %-25s ","Name", "Country", "District", "Population"));
-        System.out.println(String.format("%-45s %-10s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
-        for ( City city : citylistcon)
-        {
-            System.out.println(String.format("%-45s %-10s %-25s %-25s", city.Name, city.CountryCode, city.District, city.Population));
-        }
-        System.out.println("===================================================================================================");
-        System.out.println("\n");
     }
 
     //** All the cities in a region organised by largest population to smallest.
@@ -250,12 +197,12 @@ public class App
             // Check one is returned
             ArrayList<City> citylistreg = new ArrayList<City>();
             while (rset.next()) {
-                City citycon = new City();
-                citycon.Name = rset.getString("Name");
-                citycon.CountryCode = rset.getString("CountryCode");
-                citycon.District = rset.getString("District");
-                citycon.Population = rset.getInt("Population");
-                citylistreg.add(citycon);
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                citylistreg.add(city);
             }
             return citylistreg;
 
@@ -267,20 +214,25 @@ public class App
         }
     }
 
-    public void displayCityreg(ArrayList<City> citylistreg)
+    public void displayCity(ArrayList<City> citylist)
     {
-        System.out.println("All the cities in a region organised by largest population to smallest.");
+        System.out.println("CITIES");
         System.out.println(String.format("%-45s %-10s %-25s %-25s ","Name", "Country", "District", "Population"));
         System.out.println(String.format("%-45s %-10s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
-        for ( City city : citylistreg)
+        for ( City city : citylist)
         {
-            System.out.println(String.format("%-45s %-10s %-25s %-25s", city.Name, city.CountryCode, city.District, city.Population));
+            String Name = city.getName();
+            String CountryCode = city.getCountryCode();
+            String District = city.getDistrict();
+            int Population = city.getPopulation();
+            System.out.println(String.format("%-45s %-10s %-25s %-25s", Name, CountryCode, District, Population));
         }
         System.out.println("===================================================================================================");
         System.out.println("\n");
     }
 
-    //All the capital cities in the world organised by largest population to smallest.
+    //////**CAPITAL CITIES***//////
+    ///All the capital cities in the world organised by largest population to smallest.
     public ArrayList<City> getCapitalbyPopu()
     {
         try {
@@ -295,12 +247,12 @@ public class App
             // Check one is returned
             ArrayList<City> capitalctylist = new ArrayList<City>();
             while (rset.next()) {
-                City citycon = new City();
-                citycon.Name = rset.getString("city.Name");
-                citycon.CountryCode = rset.getString("city.CountryCode");
-                citycon.District = rset.getString("city.District");
-                citycon.Population = rset.getInt("city.Population");
-                capitalctylist.add(citycon);
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                capitalctylist.add(city);
             }
             return capitalctylist;
 
@@ -310,19 +262,6 @@ public class App
             System.out.println("Failed to get country details");
             return null;
         }
-    }
-
-    public void displayCapitalbyPopu(ArrayList<City> capitalctylist)
-    {
-        System.out.println("All the capital cities in the world organised by largest population to smallest.");
-        System.out.println(String.format("%-45s %-35s %-25s ","Name", "Country", "Population"));
-        System.out.println(String.format("%-45s %-35s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~~~"));
-        for ( City city : capitalctylist)
-        {
-            System.out.println(String.format("%-45s %-35s %-25s", city.Name, city.CountryCode, city.Population));
-        }
-        System.out.println("===================================================================================================");
-        System.out.println("\n");
     }
 
     //All the capital cities in a continent organised by largest population to smallest.
@@ -340,12 +279,12 @@ public class App
             // Check one is returned
             ArrayList<City> capitalctycon = new ArrayList<City>();
             while (rset.next()) {
-                City citycon = new City();
-                citycon.Name = rset.getString("city.Name");
-                citycon.CountryCode = rset.getString("city.CountryCode");
-                citycon.District = rset.getString("city.District");
-                citycon.Population = rset.getInt("city.Population");
-                capitalctycon.add(citycon);
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                capitalctycon.add(city);
             }
             return capitalctycon;
 
@@ -355,19 +294,6 @@ public class App
             System.out.println("Failed to get country details");
             return null;
         }
-    }
-
-    public void displayCapitalcon(ArrayList<City> capitalctycon)
-    {
-        System.out.println("All the capital cities in a continent organised by largest population to smallest.");
-        System.out.println(String.format("%-45s %-35s %-25s ","Name", "Country", "Population"));
-        System.out.println(String.format("%-45s %-35s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~~~"));
-        for ( City city : capitalctycon)
-        {
-            System.out.println(String.format("%-45s %-35s %-25s", city.Name, city.CountryCode, city.Population));
-        }
-        System.out.println("===================================================================================================");
-        System.out.println("\n");
     }
 
     //All the capital cities in a region organised by largest to smallest.
@@ -385,12 +311,12 @@ public class App
             // Check one is returned
             ArrayList<City> capitalctyreg = new ArrayList<City>();
             while (rset.next()) {
-                City citycon = new City();
-                citycon.Name = rset.getString("city.Name");
-                citycon.CountryCode = rset.getString("city.CountryCode");
-                citycon.District = rset.getString("city.District");
-                citycon.Population = rset.getInt("city.Population");
-                capitalctyreg.add(citycon);
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                capitalctyreg.add(city);
             }
             return capitalctyreg;
 
@@ -402,14 +328,18 @@ public class App
         }
     }
 
-    public void displayCapitalreg(ArrayList<City> capitalctyreg)
+    public void displayCapitalbyPopu(ArrayList<City> capitalctyreg)
     {
-        System.out.println("All the capital cities in a region organised by largest to smallest.");
-        System.out.println(String.format("%-45s %-35s %-25s ","Name", "Country", "Population"));
-        System.out.println(String.format("%-45s %-35s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~~~"));
+        System.out.println("CAPITAL CITIES");
+        System.out.println(String.format("%-45s %-25s %-25s ","Name", "Country", "Population"));
+        System.out.println(String.format("%-45s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~~~"));
         for ( City city : capitalctyreg)
         {
-            System.out.println(String.format("%-45s %-35s %-25s", city.Name, city.CountryCode, city.Population));
+            String Name = city.getName();
+            String CountryCode = city.getCountryCode();
+            String District = city.getDistrict();
+            int Population = city.getPopulation();
+            System.out.println(String.format("%-45s %-25s %-25s", Name, CountryCode, Population));
         }
         System.out.println("===================================================================================================");
         System.out.println("\n");
@@ -453,14 +383,14 @@ public class App
         ArrayList<City> capitalreg = a.getCapitalreg();
 
         // Display countries
-        a.displayCitybyPopu(city);
-        a.displayCitycon(citycon);
-        a.displayCitycountry(citycountry);
-        a.displaydistrict(citydistrict);
-        a.displayCityreg(cityreg);
+        a.displayCity(city);
+        a.displayCity(citycon);
+        a.displayCity(citycountry);
+        a.displayCity(citydistrict);
+        a.displayCity(cityreg);
         a.displayCapitalbyPopu(capitalcty);
-        a.displayCapitalcon(capitalcon);
-        a.displayCapitalreg(capitalreg);
+        a.displayCapitalbyPopu(capitalcon);
+        a.displayCapitalbyPopu(capitalreg);
 
         // Disconnect from database
         a.disconnect();
