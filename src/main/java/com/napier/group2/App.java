@@ -154,13 +154,20 @@ public class App
     }
 
     //***Display Country
-    public void displayCountry(ArrayList<Country> countrytylist)
+    public void displayCountry(ArrayList<Country> countrylist)
     {
+        if (countrylist == null)
+        {
+            System.out.println("No Result");
+            return;
+        }
         System.out.println("All the countries in the world organised by largest population to smallest.");
         System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","Code", "Name", "Continent", "Region", "Population", "Capital"));
         System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","~~~~", "~~~~", "~~~~~~~~~", "~~~~~~", "~~~~~~~~~~", "~~~~~~~"));
-        for ( Country coty : countrytylist)
+        for ( Country coty : countrylist)
         {
+            if (coty == null)
+                continue;
             String Code = coty.getCode();
             String Name = coty.getName();
             String Continent = coty.getContinent();
@@ -273,26 +280,6 @@ public class App
             System.out.println("Failed to get country details");
             return null;
         }
-    }
-
-    //**display countries with limit
-    public void displayCountrywithlimit(ArrayList<Country> countrytylist)
-    {
-        System.out.println("All the countries in the world organised by largest population to smallest by limit.");
-        System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","Code", "Name", "Continent", "Region", "Population", "Capital"));
-        System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","~~~~", "~~~~", "~~~~~~~~~", "~~~~~~", "~~~~~~~~~~", "~~~~~~~"));
-        for ( Country coty : countrytylist)
-        {
-            String Code = coty.getCode();
-            String Name = coty.getName();
-            String Continent = coty.getContinent();
-            String Region = coty.getRegion();
-            int Population = coty.getPopulation();
-            int Capital = coty.getCapital();
-            System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s", Code, Name, Continent, Region, Population, Capital));
-        }
-        System.out.println("=========================================================================================================");
-        System.out.println("\n");
     }
 
     ////****CITIES****////
@@ -462,11 +449,18 @@ public class App
 
     public void displayCity(ArrayList<City> citylist)
     {
+        if (citylist == null)
+        {
+            System.out.println("No Result");
+            return;
+        }
         System.out.println("CITIES");
         System.out.println(String.format("%-45s %-10s %-25s %-25s ","Name", "Country", "District", "Population"));
         System.out.println(String.format("%-45s %-10s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~", "~~~~~~~~~~"));
         for ( City city : citylist)
         {
+            if (city == null)
+                continue;
             String Name = city.getName();
             String CountryCode = city.getCountryCode();
             String District = city.getDistrict();
@@ -737,13 +731,20 @@ public class App
     }
 
     //**Display Capital Cities
-    public void displayCapitalbyPopu(ArrayList<City> capitalctyreg)
+    public void displayCapitalCity(ArrayList<City> capitalcty)
     {
+        if (capitalcty == null)
+        {
+            System.out.println("No Result");
+            return;
+        }
         System.out.println("CAPITAL CITIES");
         System.out.println(String.format("%-45s %-25s %-25s ","Name", "Country", "Population"));
         System.out.println(String.format("%-45s %-25s %-25s ","~~~~", "~~~~~~~", "~~~~~~~~~~"));
-        for ( City city : capitalctyreg)
+        for ( City city : capitalcty)
         {
+            if (city == null)
+                continue;
             String Name = city.getName();
             String CountryCode = city.getCountryCode();
             String District = city.getDistrict();
@@ -788,42 +789,44 @@ public class App
         ArrayList<Country> ctylimit = a.getCountrywithlimit();
         ArrayList<Country> ctyconlimit = a.getCountryconwithlimit();
         ArrayList<Country> ctyreglimit = a.getCountryregwithlimit();
+
         // Get cities
         ArrayList<City> city = a.getCity();
         ArrayList<City> citycon = a.getCitycon();
         ArrayList<City> citycountry = a.getCitycountry();
         ArrayList<City> citydistrict = a.getdistrict();
         ArrayList<City> cityreg = a.getCityreg();
-        ArrayList<City> capitalcty = a.getCapitalbyPopu();
-        ArrayList<City> capitalcon = a.getCapitalcon();
-        ArrayList<City> capitalreg = a.getCapitalreg();
         ArrayList<City> citywithlimit = a.getCitywithlimit();
         ArrayList<City> cityconwithlimit = a.getCityconwithlimit();
         ArrayList<City> citycountrywithlimit = a.getCitycountrywithlimit();
         ArrayList<City> citydistrictwithlimit = a.getdistrictwithlimit();
         ArrayList<City> cityregwithlimit = a.getCityregwithlimit();
+        ArrayList<City> capitalcty = a.getCapitalbyPopu();
+        ArrayList<City> capitalcon = a.getCapitalcon();
+        ArrayList<City> capitalreg = a.getCapitalreg();
 
         // Display countries
         a.displayCountry(cty);
         a.displayCountry(ctycon);
         a.displayCountry(ctyreg);
-        a.displayCountrywithlimit(ctylimit);
+        a.displayCountry(ctylimit);
         a.displayCountry(ctyconlimit);
         a.displayCountry(ctyreglimit);
+
         // Display cities
         a.displayCity(city);
         a.displayCity(citycon);
         a.displayCity(citycountry);
         a.displayCity(citydistrict);
         a.displayCity(cityreg);
-        a.displayCapitalbyPopu(capitalcty);
-        a.displayCapitalbyPopu(capitalcon);
-        a.displayCapitalbyPopu(capitalreg);
         a.displayCity(citywithlimit);
         a.displayCity(cityconwithlimit);
         a.displayCity(citycountrywithlimit);
         a.displayCity(citydistrictwithlimit);
         a.displayCity(cityregwithlimit);
+        a.displayCapitalCity(capitalcty);
+        a.displayCapitalCity(capitalcon);
+        a.displayCapitalCity(capitalreg);
 
         // Disconnect from database
         a.disconnect();
