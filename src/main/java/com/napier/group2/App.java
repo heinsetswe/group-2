@@ -50,126 +50,6 @@ public class App
             }
         }
     }
-
-    public ArrayList<Country> getCountrybyPopu()
-    {
-        try {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT Code, Name, Continent, Region, Population, Capital FROM country order by Population DESC";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new country if valid.
-            // Check one is returned
-            ArrayList<Country> ctylist = new ArrayList<Country>();
-            while (rset.next()) {
-                Country cty = new Country();
-                cty.setCode(rset.getString("Code"));
-                cty.setName(rset.getString("Name"));
-                cty.setContinent(rset.getString("Continent"));
-                cty.setRegion(rset.getString("Region"));
-                cty.setPopulation(rset.getInt("Population"));
-                cty.setCapital(rset.getInt("Capital"));
-                ctylist.add(cty);
-            }
-            return ctylist;
-
-        } catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
-        }
-    }
-
-    public ArrayList<Country> getCountrycon()
-    {
-        try {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT Code, Name, Continent, Region, Population, Capital FROM country WHERE Continent = 'Asia' " + "order by Population DESC";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new country if valid.
-            // Check one is returned
-            ArrayList<Country> ctylistcon = new ArrayList<Country>();
-            while (rset.next()) {
-                Country cty = new Country();
-                cty.setCode(rset.getString("Code"));
-                cty.setName(rset.getString("Name"));
-                cty.setContinent(rset.getString("Continent"));
-                cty.setRegion(rset.getString("Region"));
-                cty.setPopulation(rset.getInt("Population"));
-                cty.setCapital(rset.getInt("Capital"));
-                ctylistcon.add(cty);
-            }
-            return ctylistcon;
-
-        } catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
-        }
-    }
-
-    //**All the countries in a region organised by largest population to smallest.**//
-    public ArrayList<Country> getCountryreg()
-    {
-        try {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT Code, Name, Continent, Region, Population, Capital FROM country WHERE Region = 'Central Africa' " + "order by Population DESC";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new country if valid.
-            // Check one is returned
-            ArrayList<Country> ctylistreg = new ArrayList<Country>();
-            while (rset.next()) {
-                Country cty = new Country();
-                cty.setCode(rset.getString("Code"));
-                cty.setName(rset.getString("Name"));
-                cty.setContinent(rset.getString("Continent"));
-                cty.setRegion(rset.getString("Region"));
-                cty.setPopulation(rset.getInt("Population"));
-                cty.setCapital(rset.getInt("Capital"));
-                ctylistreg.add(cty);
-            }
-            return ctylistreg;
-
-        } catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
-        }
-    }
-
-    public void displayCountry(ArrayList<Country> countrytylist)
-    {
-        System.out.println("COUNTRIES");
-        System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","Code", "Name", "Continent", "Region", "Population", "Capital"));
-        System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s","~~~~", "~~~~", "~~~~~~~~~", "~~~~~~", "~~~~~~~~~~", "~~~~~~~"));
-        for ( Country coty : countrytylist)
-        {
-            String Code = coty.getCode();
-            String Name = coty.getName();
-            String Continent = coty.getContinent();
-            String Region = coty.getRegion();
-            int Population = coty.getPopulation();
-            int Capital = coty.getCapital();
-            System.out.println(String.format("%-5s %-30s %-15s %-30s %-25s %-10s", Code, Name, Continent, Region, Population, Capital));
-        }
-        System.out.println("=========================================================================================================");
-        System.out.println("\n");
-    }
-
     ///////////////////////
     //**All the cities in a district organised by largest population to smallest.
     public ArrayList<City> getdistrict()
@@ -465,7 +345,6 @@ public class App
         System.out.println("\n");
     }
 
-
     /**
      * Disconnect from the MySQL database.
      */
@@ -494,9 +373,6 @@ public class App
         a.connect();
 
         // Get countries
-        ArrayList<Country> cty = a.getCountrybyPopu();
-        ArrayList<Country> ctycon = a.getCountrycon();
-        ArrayList<Country> ctyreg = a.getCountryreg();
         ArrayList<City> city = a.getCity();
         ArrayList<City> citycon = a.getCitycon();
         ArrayList<City> citycountry = a.getCitycountry();
@@ -507,9 +383,6 @@ public class App
         ArrayList<City> capitalreg = a.getCapitalreg();
 
         // Display countries
-        a.displayCountry(cty);
-        a.displayCountry(ctycon);
-        a.displayCountry(ctyreg);
         a.displayCity(city);
         a.displayCity(citycon);
         a.displayCity(citycountry);
