@@ -231,6 +231,8 @@ public class App
         System.out.println("\n");
     }
 
+    //****TOP CITIES****//
+    //The top N populated cities in the world where N is provided by the user.
     public ArrayList<City> getCitywithlimit()
     {
         try {
@@ -262,7 +264,7 @@ public class App
         }
     }
 
-    //** All the cities in a continent organised by largest population to smallest.
+    //** The top N populated cities in a continent where N is provided by the user.
     public ArrayList<City> getCityconwithlimit()
     {
         try {
@@ -294,6 +296,7 @@ public class App
         }
     }
 
+    //The top N populated cities in a district where N is provided by the user.
     public ArrayList<City> getdistrictwithlimit()
     {
         try {
@@ -325,9 +328,8 @@ public class App
         }
     }
 
-    //** All the cities in a district organised by largest population to smallest.
-    ///////////////////////
-//**All the cities in a country organised by largest population to smallest.
+
+    //**The top N populated cities in a country where N is provided by the user.
     public ArrayList<City> getCitycountrywithlimit()
     {
         try {
@@ -358,6 +360,8 @@ public class App
             return null;
         }
     }
+
+    //**The top N populated cities in a region where N is provided by the user.
     public ArrayList<City> getCityregwithlimit()
     {
         try {
@@ -388,6 +392,7 @@ public class App
             return null;
         }
     }
+
     //////**CAPITAL CITIES***//////
     ///All the capital cities in the world organised by largest population to smallest.
     public ArrayList<City> getCapitalbyPopu()
@@ -485,6 +490,7 @@ public class App
         }
     }
 
+    //**Display Capital Cities
     public void displayCapitalbyPopu(ArrayList<City> capitalctyreg)
     {
         System.out.println("CAPITAL CITIES");
