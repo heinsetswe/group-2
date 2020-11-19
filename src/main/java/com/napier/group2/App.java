@@ -474,6 +474,168 @@ public class App
         System.out.println("\n");
     }
 
+    //****TOP CITIES****//
+    //The top N populated cities in the world where N is provided by the user.
+    public ArrayList<City> getCitywithlimit()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Name, Countrycode, District, Population FROM city order by Population DESC limit 10";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> citylist = new ArrayList<City>();
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                citylist.add(city);
+            }
+            return citylist;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    //** The top N populated cities in a continent where N is provided by the user.
+    public ArrayList<City> getCityconwithlimit()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.Countrycode = country.Code " + "AND country.Continent = 'Asia' " + "order by city.Population DESC limit 10";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> citylistcon = new ArrayList<City>();
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                citylistcon.add(city);
+            }
+            return citylistcon;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    //The top N populated cities in a district where N is provided by the user.
+    public ArrayList<City> getdistrictwithlimit()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Name, Countrycode, District, Population FROM city WHERE District = 'Rio de Janeiro' " + "order by Population DESC limit 10";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> citydistrict = new ArrayList<City>();
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                citydistrict.add(city);
+            }
+            return citydistrict;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+
+    //**The top N populated cities in a country where N is provided by the user.
+    public ArrayList<City> getCitycountrywithlimit()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.Countrycode = country.Code " + "AND country.name = 'United States' " + "order by city.Population DESC limit 10";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> countrylistcountry = new ArrayList<City>();
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                countrylistcountry.add(city);
+            }
+            return countrylistcountry;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    //**The top N populated cities in a region where N is provided by the user.
+    public ArrayList<City> getCityregwithlimit()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.Countrycode = country.Code " + "AND country.Region = 'Central America' " + "order by city.Population DESC limit 10";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> citylistreg = new ArrayList<City>();
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                citylistreg.add(city);
+            }
+            return citylistreg;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
     //////**CAPITAL CITIES***//////
     ///All the capital cities in the world organised by largest population to smallest.
     public ArrayList<City> getCapitalbyPopu()
@@ -571,6 +733,7 @@ public class App
         }
     }
 
+    //**Display Capital Cities
     public void displayCapitalbyPopu(ArrayList<City> capitalctyreg)
     {
         System.out.println("CAPITAL CITIES");
@@ -631,6 +794,11 @@ public class App
         ArrayList<City> capitalcty = a.getCapitalbyPopu();
         ArrayList<City> capitalcon = a.getCapitalcon();
         ArrayList<City> capitalreg = a.getCapitalreg();
+        ArrayList<City> citywithlimit = a.getCitywithlimit();
+        ArrayList<City> cityconwithlimit = a.getCityconwithlimit();
+        ArrayList<City> citycountrywithlimit = a.getCitycountrywithlimit();
+        ArrayList<City> citydistrictwithlimit = a.getdistrictwithlimit();
+        ArrayList<City> cityregwithlimit = a.getCityregwithlimit();
 
         // Display countries
         a.displayCountry(cty);
@@ -648,6 +816,11 @@ public class App
         a.displayCapitalbyPopu(capitalcty);
         a.displayCapitalbyPopu(capitalcon);
         a.displayCapitalbyPopu(capitalreg);
+        a.displayCity(citywithlimit);
+        a.displayCity(cityconwithlimit);
+        a.displayCity(citycountrywithlimit);
+        a.displayCity(citydistrictwithlimit);
+        a.displayCity(cityregwithlimit);
 
         // Disconnect from database
         a.disconnect();
