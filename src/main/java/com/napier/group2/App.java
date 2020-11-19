@@ -231,6 +231,68 @@ public class App
         System.out.println("\n");
     }
 
+    public ArrayList<City> getCitywithlimit()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Name, Countrycode, District, Population FROM city order by Population DESC limit 10";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> citylist = new ArrayList<City>();
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                citylist.add(city);
+            }
+            return citylist;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    //** All the cities in a continent organised by largest population to smallest.
+    public ArrayList<City> getCityconwithlimit()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.Countrycode = country.Code " + "AND country.Continent = 'Asia' " + "order by city.Population DESC limit 10";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> citylistcon = new ArrayList<City>();
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                citylistcon.add(city);
+            }
+            return citylistcon;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
     //////**CAPITAL CITIES***//////
     ///All the capital cities in the world organised by largest population to smallest.
     public ArrayList<City> getCapitalbyPopu()
@@ -381,6 +443,8 @@ public class App
         ArrayList<City> capitalcty = a.getCapitalbyPopu();
         ArrayList<City> capitalcon = a.getCapitalcon();
         ArrayList<City> capitalreg = a.getCapitalreg();
+        ArrayList<City> citywithlimit = a.getCitywithlimit();
+        ArrayList<City> cityconwithlimit = a.getCityconwithlimit();
 
         // Display countries
         a.displayCity(city);
@@ -391,6 +455,8 @@ public class App
         a.displayCapitalbyPopu(capitalcty);
         a.displayCapitalbyPopu(capitalcon);
         a.displayCapitalbyPopu(capitalreg);
+        a.displayCity(citywithlimit);
+        a.displayCity(cityconwithlimit);
 
         // Disconnect from database
         a.disconnect();
