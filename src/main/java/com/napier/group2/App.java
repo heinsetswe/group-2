@@ -51,6 +51,7 @@ public class App
         }
     }
 
+    //**All the countries in the world organised by largest population to smallest.
     public ArrayList<Country> getCountrybyPopu()
     {
         try {
@@ -84,6 +85,7 @@ public class App
         }
     }
 
+    //**All the countries in a continent organised by largest population to smallest.
     public ArrayList<Country> getCountrycon()
     {
         try {
@@ -151,6 +153,7 @@ public class App
         }
     }
 
+    //***Display Country
     public void displayCountry(ArrayList<Country> countrytylist)
     {
         System.out.println("All the countries in the world organised by largest population to smallest.");
