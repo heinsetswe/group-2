@@ -7,3 +7,6 @@
 - License [![LICENSE](https://img.shields.io/github/license/heinsetswe/group-2.svg?style=flat-square)](https://github.com/heinsetswe/group-2/blob/master/LICENSE)
 
 - Release [![Releases](https://img.shields.io/github/release/heinsetswe/group-2/all.svg?style=flat-square)](https://github.com/heinsetswe/group-2/releases)
+
+- Codecov [![codecov](https://codecov.io/gh/heinsetswe/group-2/branch/master/graph/badge.svg?token=T7TLV193HH)](https://codecov.io/gh/heinsetswe/group-2)
+
