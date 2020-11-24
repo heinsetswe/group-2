@@ -490,6 +490,102 @@ public class App
         }
     }
 
+    //**The top N populated capital cities in the world where N is provided by the user.
+    public ArrayList<City> getCapitalwithlimit()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.ID = country.Capital " +  "order by city.Population DESC limit 10";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> capitalctylist = new ArrayList<City>();
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                capitalctylist.add(city);
+            }
+            return capitalctylist;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    //**The top N populated capital cities in a continent where N is provided by the user.
+    public ArrayList<City> getCapitalconwithlimit()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.ID = country.Capital " + "AND country.Continent = 'Europe' " + "order by city.Population DESC limit 10";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> capitalctycon = new ArrayList<City>();
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                capitalctycon.add(city);
+            }
+            return capitalctycon;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    //**The top N populated capital cities in a region where N is provided by the user.
+    public ArrayList<City> getCapitalregwithlimit()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * " + "FROM city, country WHERE city.ID = country.Capital " + "AND country.Region = 'Southeast Asia' " + "order by city.Population DESC limit 10";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<City> capitalctyreg = new ArrayList<City>();
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("Name"));
+                city.setCountryCode(rset.getString("CountryCode"));
+                city.setDistrict(rset.getString("District"));
+                city.setPopulation(rset.getInt("Population"));
+                capitalctyreg.add(city);
+            }
+            return capitalctyreg;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
     //**Display Capital Cities
     public void displayCapitalbyPopu(ArrayList<City> capitalctyreg)
     {
@@ -549,6 +645,9 @@ public class App
         ArrayList<City> citycountrywithlimit = a.getCitycountrywithlimit();
         ArrayList<City> citydistrictwithlimit = a.getdistrictwithlimit();
         ArrayList<City> cityregwithlimit = a.getCityregwithlimit();
+        ArrayList<City> capitalwithlimit = a.getCapitalwithlimit();
+        ArrayList<City> capitalconwithlimit = a.getCapitalconwithlimit();
+        ArrayList<City> capitalregwithlimit = a.getCapitalregwithlimit();
 
         // Display countries
         a.displayCity(city);
@@ -564,6 +663,9 @@ public class App
         a.displayCity(citycountrywithlimit);
         a.displayCity(citydistrictwithlimit);
         a.displayCity(cityregwithlimit);
+        a.displayCapitalbyPopu(capitalwithlimit);
+        a.displayCapitalbyPopu(capitalconwithlimit);
+        a.displayCapitalbyPopu(capitalregwithlimit);
 
         // Disconnect from database
         a.disconnect();
