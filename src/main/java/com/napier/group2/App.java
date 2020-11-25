@@ -292,6 +292,31 @@ public class App
         System.out.println("\n");
     }
 
+    //**The population of the world.
+    public void worldpopulation()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT sum(Population) FROM country";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            String worldpopulation="";
+            // taking the value
+            while (rset.next()) {
+                worldpopulation = rset.getString(1);
+            }
+            System.out.println("The population of the world : " + worldpopulation);
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+        }
+    }
+
     /**
      * Disconnect from the MySQL database.
      */
@@ -334,6 +359,9 @@ public class App
         a.displayCountrywithlimit(ctylimit);
         a.displayCountry(ctyconlimit);
         a.displayCountry(ctyreglimit);
+
+        //Display Population
+        a.worldpopulation();
 
         // Disconnect from database
         a.disconnect();
