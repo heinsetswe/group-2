@@ -877,6 +877,81 @@ public class App
         }
     }
 
+    //**The population of a continent.
+    public void continentpopulation()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT sum(Population) FROM country WHERE Continent = 'Asia' ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            String worldpopulation="";
+            // taking the value
+            while (rset.next()) {
+                worldpopulation = rset.getString(1);
+            }
+            System.out.println("The population of a continent (Asia) : " + worldpopulation);
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+        }
+    }
+
+    //**The population of a region.
+    public void regionpopulation()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT sum(Population) FROM country WHERE Region = 'Central Africa' ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            String worldpopulation="";
+            // taking the value
+            while (rset.next()) {
+                worldpopulation = rset.getString(1);
+            }
+            System.out.println("The population of a region (Central Africa) : " + worldpopulation);
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+        }
+    }
+
+    //**The population of a country.
+    public void countrypopulation()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT sum(Population) FROM country WHERE Name = 'India' ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            String worldpopulation="";
+            // taking the value
+            while (rset.next()) {
+                worldpopulation = rset.getString(1);
+            }
+            System.out.println("The population of a country (India) : " + worldpopulation);
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+        }
+    }
+
     /**
      * Disconnect from the MySQL database.
      */
@@ -965,6 +1040,9 @@ public class App
 
         //Display Population
         a.worldpopulation();
+        a.continentpopulation();
+        a.regionpopulation();
+        a.countrypopulation();
 
         // Disconnect from database
         a.disconnect();
