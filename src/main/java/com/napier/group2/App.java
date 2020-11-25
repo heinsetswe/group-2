@@ -604,6 +604,56 @@ public class App
         System.out.println("\n");
     }
 
+    //**The population of a district.
+    public void districtpopulation()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT sum(Population) FROM country WHERE District = 'Wales' ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            String worldpopulation="";
+            // taking the value
+            while (rset.next()) {
+                worldpopulation = rset.getString(1);
+            }
+            System.out.println("The population of a district (Wales) : " + worldpopulation);
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+        }
+    }
+
+    //**The population of a city.
+    public void citypopulation()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT sum(Population) FROM country WHERE Name = 'Edinburgh' ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            String worldpopulation="";
+            // taking the value
+            while (rset.next()) {
+                worldpopulation = rset.getString(1);
+            }
+            System.out.println("The population of a city (Edinburgh) : " + worldpopulation);
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+        }
+    }
+
     /**
      * Disconnect from the MySQL database.
      */
@@ -666,6 +716,10 @@ public class App
         a.displayCapitalbyPopu(capitalwithlimit);
         a.displayCapitalbyPopu(capitalconwithlimit);
         a.displayCapitalbyPopu(capitalregwithlimit);
+
+        //**World's population
+        a.districtpopulation();
+        a.citypopulation();
 
         // Disconnect from database
         a.disconnect();
