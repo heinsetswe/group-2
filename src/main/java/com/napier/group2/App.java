@@ -78,7 +78,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -112,7 +112,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -145,7 +145,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -177,7 +177,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -209,7 +209,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -259,7 +259,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -291,7 +291,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -323,7 +323,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -356,7 +356,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -388,7 +388,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -421,7 +421,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -453,7 +453,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -485,7 +485,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -517,7 +517,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -549,7 +549,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -581,7 +581,7 @@ public class App
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -612,7 +612,7 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT sum(Population) FROM country WHERE District = 'Wales' ";
+                    "SELECT sum(Population) FROM city WHERE District = 'Wales' ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             String worldpopulation="";
@@ -637,7 +637,7 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT sum(Population) FROM country WHERE Name = 'Edinburgh' ";
+                    "SELECT sum(Population) FROM city WHERE Name = 'Edinburgh' ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             String worldpopulation="";
