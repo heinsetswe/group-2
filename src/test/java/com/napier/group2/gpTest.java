@@ -126,6 +126,4 @@ public class gpTest
         app.displayCity(capitalregwithlimit);
     }
 
-    @Test
-
 }
