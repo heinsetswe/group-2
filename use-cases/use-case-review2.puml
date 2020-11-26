@@ -41,6 +41,18 @@ rectangle "Population in the World" {
             by largest population to smallest."
     usecase UC19 as "display all the capital cities in a region organised
             by largest population to smallest."
+    usecase UC20 as "display all the top 10 capital cities in the world organised
+            by largest population to smallest."
+    usecase UC21 as "display all the top 10 capital cities in a continent organised
+            by largest population to smallest."
+    usecase UC22 as "display all the top 10 capital cities in a continent organised
+            by largest population to smallest."
+    usecase UC23 as "display all the population of the world."
+    usecase UC24 as "display all the population of a continent."
+    usecase UC25 as "display all the population of a region."
+    usecase UC26 as "display all the population of a country."
+    usecase UC27 as "display all the population of a district."
+    usecase UC28 as "display all population of a city."
 
     Org ---> UC1
     Org ---> UC2
@@ -61,6 +73,15 @@ rectangle "Population in the World" {
     Org ---> UC17
     Org ---> UC18
     Org ---> UC19
+    Org ---> UC20
+    Org ---> UC21
+    Org ---> UC22
+    Org ---> UC23
+    Org ---> UC24
+    Org ---> UC25
+    Org ---> UC26
+    Org ---> UC27
+    Org ---> UC28
 
 }
 

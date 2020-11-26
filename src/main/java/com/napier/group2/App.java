@@ -1,5 +1,9 @@
 package com.napier.group2;
 
+import com.mysql.cj.protocol.Resultset;
+import com.sun.org.apache.bcel.internal.classfile.Code;
+
+import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -1001,7 +1005,6 @@ public class App
             System.out.println("Failed to get population details");
         }
     }
-
 
     /**
      * Disconnect from the MySQL database.

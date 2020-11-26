@@ -115,5 +115,17 @@ public class gpTest
         ArrayList<City> capitalreg = new ArrayList<City>();
         capitalreg.add(null);
         app.displayCity(capitalreg);
+        ArrayList<City> capitalwithlimit = new ArrayList<City>();
+        capitalwithlimit.add(null);
+        app.displayCity(capitalwithlimit);
+        ArrayList<City> capitalconwithlimit = new ArrayList<City>();
+        capitalconwithlimit.add(null);
+        app.displayCity(capitalconwithlimit);
+        ArrayList<City> capitalregwithlimit = new ArrayList<City>();
+        capitalregwithlimit.add(null);
+        app.displayCity(capitalregwithlimit);
     }
+
+    @Test
+
 }
