@@ -1,11 +1,10 @@
 package com.napier.group2;
 
-import com.mysql.cj.protocol.Resultset;
-import com.sun.org.apache.bcel.internal.classfile.Code;
-
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class App
 {
@@ -857,7 +856,7 @@ public class App
     }
 
     //**The population of the world.
-    public void worldpopulation()
+    public String worldpopulation()
     {
         try {
             // Create an SQL statement
@@ -873,12 +872,14 @@ public class App
                 worldpopulation = rset.getString(1);
             }
             System.out.println("The population of the world : " + worldpopulation);
+            return worldpopulation;
 
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
             System.out.println("Failed to get population details");
         }
+        return null;
     }
 
     //**The population of a continent.
@@ -1006,6 +1007,84 @@ public class App
         }
     }
 
+    //**The top N populated cities in a region where N is provided by the user.
+    public ArrayList<CountryLanguage> getCountrylanguages()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            String worldpopu = worldpopulation();
+            BigInteger totalPopulation = BigInteger.valueOf(Long.parseLong(worldpopu));
+            ArrayList<CountryLanguage> language = new ArrayList<CountryLanguage>();
+            String[] languages = {"Chinese", "English", "Hindi", "Spanish", "Arabic"};
+            for (String lang : languages)
+            {
+                BigDecimal population = new BigDecimal("0");
+                BigDecimal percent = new BigDecimal("100");
+                CountryLanguage language1 = new CountryLanguage();
+                ArrayList<CountryLanguage> langPercent = new ArrayList<CountryLanguage>();
+                // Create string for SQL statement
+                String strSelect =
+                        "SELECT Percentage, CountryCode " + "FROM countrylanguage WHERE Language = '" + lang +"'";
+                // Execute SQL statement
+                ResultSet rset = stmt.executeQuery(strSelect);
+                // Return new country if valid.
+                // Check one is returned
+                while (rset.next()) {
+                    CountryLanguage langPercentage = new CountryLanguage();
+                    langPercentage.setCountryCode(rset.getString("CountryCode"));
+                    langPercentage.setPercentage(rset.getBigDecimal("Percentage"));
+                    langPercent.add(langPercentage);
+                }
+
+                // total population of languages
+                for (CountryLanguage language2 : langPercent)
+                {
+                    BigDecimal percentage = language2.getPercentage();
+                    String strSelect1 =
+                            "SELECT Population " + "FROM country WHERE Code = '" + language2.getCountryCode() +"'";
+                    ResultSet rset1 = stmt.executeQuery(strSelect1);
+                    while (rset1.next())
+                    {
+                        BigDecimal popu = rset1.getBigDecimal("Population");
+                        BigDecimal popu1 = percentage.multiply(popu).divide( percent, 2);
+                        population = population.add(popu1);
+                    }
+                }
+                // percent of the population
+                BigDecimal popuPercent = population.multiply(percent).divide(new BigDecimal(totalPopulation), 2);
+                language1.setLanguage(lang);
+                language1.setPopulation(popuPercent);
+                language.add(language1);
+            }
+            return language;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country languages details");
+            return null;
+        }
+    }
+
+    //**Display Capital Cities
+    public void displayCountrylanguages(ArrayList<CountryLanguage> language) {
+        if (language == null) {
+            System.out.println("No Result");
+            return;
+        }
+        Collections.sort(language, CountryLanguage.compareLanguage);
+        for (CountryLanguage lang : language) {
+            if (lang == null)
+                continue;
+            String langName = lang.getLanguage();
+            BigDecimal population = lang.getPopulation();
+            System.out.println(langName + " is spoken " + population + "% of the world population.");
+        }
+        System.out.println("======================================================================");
+        System.out.println("\n");
+    }
+
     /**
      * Disconnect from the MySQL database.
      */
@@ -1066,6 +1145,9 @@ public class App
         ArrayList<City> capitalconwithlimit = a.getCapitalconwithlimit();
         ArrayList<City> capitalregwithlimit = a.getCapitalregwithlimit();
 
+        // Get country languages
+        ArrayList<CountryLanguage> ctylang = a.getCountrylanguages();
+
         // Display countries
         a.displayCountry(cty);
         a.displayCountry(ctycon);
@@ -1091,6 +1173,9 @@ public class App
         a.displayCapitalCity(capitalwithlimit);
         a.displayCapitalCity(capitalconwithlimit);
         a.displayCapitalCity(capitalregwithlimit);
+
+        // Display country languages
+        a.displayCountrylanguages(ctylang);
 
         //Display Population
         a.worldpopulation();
