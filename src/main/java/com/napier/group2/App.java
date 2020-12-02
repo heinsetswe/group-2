@@ -1028,8 +1028,6 @@ public class App
                         "SELECT Percentage, CountryCode " + "FROM countrylanguage WHERE Language = '" + lang +"'";
                 // Execute SQL statement
                 ResultSet rset = stmt.executeQuery(strSelect);
-                // Return new country if valid.
-                // Check one is returned
                 while (rset.next()) {
                     CountryLanguage langPercentage = new CountryLanguage();
                     langPercentage.setCountryCode(rset.getString("CountryCode"));
@@ -1067,7 +1065,7 @@ public class App
         }
     }
 
-    //**Display Capital Cities
+    //**Display Country languages
     public void displayCountrylanguages(ArrayList<CountryLanguage> language) {
         if (language == null) {
             System.out.println("No Result");
@@ -1082,6 +1080,103 @@ public class App
             System.out.println(langName + " is spoken " + population + "% of the world population.");
         }
         System.out.println("======================================================================");
+        System.out.println("\n");
+    }
+
+    //**The top N populated capital cities in a region where N is provided by the user.
+    public ArrayList<Population> getpplPopuCountry()
+    {
+        try {
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Name " + "FROM country";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            ArrayList<String> cotyName = new ArrayList<>();
+            ArrayList<Population> pplPopuCoty = new ArrayList<Population>();
+            while (rset.next()) {
+                cotyName.add(rset.getString("Name"));
+            }
+            for (String Name : cotyName)
+            {
+                String strSelect1 =
+                        "SELECT Population, Code, Name " + "FROM country WHERE Name = \'" + Name + "\' ";
+                ResultSet rset1 = stmt.executeQuery(strSelect1);
+                while (rset1.next()) {
+                    Population popuName = new Population();
+                    popuName.setName(rset1.getString("Name"));
+                    popuName.setTotal(BigInteger.valueOf(rset1.getInt("Population")));
+                    String Code = rset1.getString("Code");
+                    String strSelect2 =
+                            "SELECT SUM(Population) as totalcityPopu " + "FROM city WHERE CountryCode = \'" + Code + "\' GROUP BY CountryCode";
+                    BigInteger rset2 = getTotalPopu(strSelect2);
+                    popuName.setCityPopu(rset2);
+                    pplPopuCoty.add(popuName);
+                }
+            }
+            return pplPopuCoty;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city population details");
+            return null;
+        }
+    }
+
+    public BigInteger getTotalPopu(String strSelect2)
+    {
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rset = stmt.executeQuery(strSelect2);
+            BigInteger totalPopu = new BigInteger("0");
+            // taking the value
+            while (rset.next()) {
+                int cityPopu = rset.getInt("totalcityPopu");
+                BigInteger cityPopu1 = BigInteger.valueOf(cityPopu);
+                totalPopu = totalPopu.add(cityPopu1);
+            }
+            return totalPopu;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    //**Display Capital Cities
+    public void displaypplPopuCountry(ArrayList<Population> cityPopu)
+    {
+        if (cityPopu == null)
+        {
+            System.out.println("No Result");
+            return;
+        }
+        System.out.println("POPULATION OF PEOPLE LIVING IN A CITY");
+        System.out.println("=====================================\n");
+        for ( Population pplPopu : cityPopu)
+        {
+            if (pplPopu == null)
+                continue;
+            BigInteger totalPopu = pplPopu.getTotal();
+            if (totalPopu.compareTo(BigInteger.ZERO) == 0)
+            {
+                System.out.println("The total population of country is ZERO");
+            }
+            else {
+                BigDecimal percent = new BigDecimal("100");
+                BigDecimal pplinCity = new BigDecimal(pplPopu.getCityPopu()).multiply(percent).divide(new BigDecimal(pplPopu.getTotal()), 2);
+                BigDecimal pplnotinCity = percent.subtract(pplinCity);
+                String city = pplPopu.getName();
+                System.out.println("COUNTRY - " + city);
+                System.out.println("The total " + pplinCity + "% of people are living in the city.");
+                System.out.println("The total " + pplnotinCity + "% of people are not living in the city.\n");
+            }
+        }
+        System.out.println("===================================================");
         System.out.println("\n");
     }
 
@@ -1145,6 +1240,9 @@ public class App
         ArrayList<City> capitalconwithlimit = a.getCapitalconwithlimit();
         ArrayList<City> capitalregwithlimit = a.getCapitalregwithlimit();
 
+        // Get living not living details
+        ArrayList<Population> pplPopucountry = a.getpplPopuCountry();
+
         // Get country languages
         ArrayList<CountryLanguage> ctylang = a.getCountrylanguages();
 
@@ -1174,9 +1272,6 @@ public class App
         a.displayCapitalCity(capitalconwithlimit);
         a.displayCapitalCity(capitalregwithlimit);
 
-        // Display country languages
-        a.displayCountrylanguages(ctylang);
-
         //Display Population
         a.worldpopulation();
         a.continentpopulation();
@@ -1184,6 +1279,12 @@ public class App
         a.countrypopulation();
         a.districtpopulation();
         a.citypopulation();
+
+        // Display living not living details
+        a.displaypplPopuCountry(pplPopucountry);
+
+        // Display country languages
+        a.displayCountrylanguages(ctylang);
 
         // Disconnect from database
         a.disconnect();

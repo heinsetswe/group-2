@@ -27,9 +27,9 @@ public class Population {
     /**
      * City
      */
-    private BigInteger City;
-    public BigInteger getCity() { return City; }
-    public void setCity(BigInteger attribute){
-        this.City = attribute;
+    private BigInteger CityPopu;
+    public BigInteger getCityPopu() { return CityPopu; }
+    public void setCityPopu(BigInteger attribute){
+        this.CityPopu = attribute;
     }
 }
