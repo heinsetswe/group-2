@@ -35,14 +35,14 @@
 | 20 | The top `N` populated capital cities in the world where `N` is provided by the user. | Yes | ![Population](img/20.PNG) |
 | 21 | The top `N` populated capital cities in a continent where `N` is provided by the user. | Yes | ![Population](img/21.PNG) |
 | 22 | The top `N` populated capital cities in a region where `N` is provided by the user. | Yes | ![Population](img/22.PNG) |
-| 23 | The population of people, people living in cities, and people not living in cities in each continent. | | |
-| 24 | The population of people, people living in cities, and people not living in cities in each region. | | |
-| 25 | The population of people, people living in cities, and people not living in cities in each country. | | |
+| 23 | The population of people, people living in cities, and people not living in cities in each continent. | Yes | ![Population](img/23.PNG) |
+| 24 | The population of people, people living in cities, and people not living in cities in each region. | Yes | ![Population](img/24.PNG) |
+| 25 | The population of people, people living in cities, and people not living in cities in each country. | Yes | ![Population](img/25.PNG) |
 | 26 | The population of the world. | Yes | ![Population](img/26.PNG) |
 | 27 | The population of a continent. | Yes | ![Population](img/27.PNG) |
 | 28 | The population of a region. | Yes | ![Population](img/28.PNG) |
 | 29 | The population of a country. | Yes | ![Population](img/29.PNG) |
 | 30 | The population of a district. | Yes | ![Population](img/30.PNG) |
 | 31 | The population of a city. | Yes | ![Population](img/31.PNG) |
-| 32 | Finally, the organisation has asked if it is possible to provide the number of people who speak the following the following languages from greatest number to smallest, including the percentage of the world population: Chinese, English, Hindi, Spanish, Arabic. | Yes | ![Population](img/32.png) |
+| 32 | Finally, the organisation has asked if it is possible to provide the number of people who speak the following the following languages from greatest number to smallest, including the percentage of the world population: Chinese, English, Hindi, Spanish, Arabic. | Yes | ![Population](img/32.PNG) |
 

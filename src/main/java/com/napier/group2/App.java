@@ -605,7 +605,8 @@ public class App
         }
     }
 
-    //**The top N populated cities in a region where N is provided by the user.
+    //**the number of people who speak different languages from greatest number to smallest
+    // , including the percentage of the world population:
     public ArrayList<City> getCityregwithlimit()
     {
         try {
@@ -1060,7 +1061,7 @@ public class App
         System.out.println("\n");
     }
 
-    //All the capital cities in a continent organised by largest population to smallest.
+    //**The population of people, people living in cities, and people not living in cities in each country.
     public ArrayList<Population> getpplPopuCountry()
     {
         try {
@@ -1091,7 +1092,7 @@ public class App
         }
     }
 
-    //All the capital cities in a continent organised by largest population to smallest.
+    //The population of people, people living in cities, and people not living in cities in each continent.
     public ArrayList<Population> getpplPopuContinent()
     {
         try {
@@ -1122,7 +1123,7 @@ public class App
         }
     }
 
-    //All the capital cities in a continent organised by largest population to smallest.
+    //The population of people, people living in cities, and people not living in cities in each region.
     public ArrayList<Population> getpplPopuRegion()
     {
         try {
