@@ -51,21 +51,12 @@ public class CountryLanguage {
     /**
      * Population of country
      */
-    private BigInteger totalPopulation;
-    public BigInteger gettotalPopulation(){
-        return totalPopulation;
+    private BigInteger totalPopu;
+    public BigInteger getTotalPopu(){
+        return totalPopu;
     }
-    public void setPopulation(BigInteger attribute){
-        this.totalPopulation = attribute;
+    public void setTotalPopu(BigInteger attribute){
+        this.totalPopu = attribute;
     }
 
-    public static Comparator<CountryLanguage> compareLanguage = new Comparator<CountryLanguage>() {
-        @Override
-        public int compare(CountryLanguage o1, CountryLanguage o2) {
-            BigDecimal popu = o1.getPopulation();
-            BigDecimal popu1 = o2.getPopulation();
-            int compare = popu1.compareTo(popu);
-            return compare;
-        }
-    };
 }

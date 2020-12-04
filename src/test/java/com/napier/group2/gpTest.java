@@ -1,8 +1,6 @@
 package com.napier.group2;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 
@@ -124,6 +122,40 @@ public class gpTest
         ArrayList<City> capitalregwithlimit = new ArrayList<City>();
         capitalregwithlimit.add(null);
         app.displayCity(capitalregwithlimit);
+    }
+
+    @Test
+    void printPopulationTestNull()
+    {
+        app.displaypplPopuCountry(null);
+    }
+
+    @Test
+    void printPopulationTestContainsNull()
+    {
+        ArrayList<Population> pplPopuCountry = new ArrayList<Population>();
+        pplPopuCountry.add(null);
+        app.displaypplPopuCountry(pplPopuCountry);
+        ArrayList<Population> pplPopuContinent = new ArrayList<Population>();
+        pplPopuContinent.add(null);
+        app.displaypplPopuCountry(pplPopuContinent);
+        ArrayList<Population> pplPopuRegion = new ArrayList<Population>();
+        pplPopuRegion.add(null);
+        app.displaypplPopuCountry(pplPopuRegion);
+    }
+
+    @Test
+    void printCountryLanguageTestNull()
+    {
+        app.displayCountrylanguages(null);
+    }
+
+    @Test
+    void printCountryLanguageTestContainsNull()
+    {
+        ArrayList<CountryLanguage> ctylang = new ArrayList<CountryLanguage>();
+        ctylang.add(null);
+        app.displayCountrylanguages(ctylang);
     }
 
 }

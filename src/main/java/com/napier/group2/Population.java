@@ -32,4 +32,15 @@ public class Population {
     public void setCityPopu(BigInteger attribute){
         this.CityPopu = attribute;
     }
+
+    /**
+     * Population of city
+     */
+    private int Population;
+    public int getPopulation(){
+        return Population;
+    }
+    public void setPopulation(int attribute){
+        this.Population = attribute;
+    }
 }

@@ -998,7 +998,7 @@ public class App
             while (rset.next()) {
                 worldpopulation = rset.getString(1);
             }
-            System.out.println("The population of a city (Edinburgh) : " + worldpopulation);
+            System.out.println("The population of a city (Edinburgh) : " + worldpopulation + "\n");
 
         } catch (Exception e)
         {
@@ -1007,137 +1007,81 @@ public class App
         }
     }
 
-    //**The top N populated cities in a region where N is provided by the user.
+    //Percentage of country languages
     public ArrayList<CountryLanguage> getCountrylanguages()
     {
         try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
-            String worldpopu = worldpopulation();
-            BigInteger totalPopulation = BigInteger.valueOf(Long.parseLong(worldpopu));
-            ArrayList<CountryLanguage> language = new ArrayList<CountryLanguage>();
+            ArrayList<CountryLanguage> countryLang = new ArrayList<CountryLanguage>();
             String[] languages = {"Chinese", "English", "Hindi", "Spanish", "Arabic"};
-            for (String lang : languages)
-            {
-                BigDecimal population = new BigDecimal("0");
-                BigDecimal percent = new BigDecimal("100");
-                CountryLanguage language1 = new CountryLanguage();
-                ArrayList<CountryLanguage> langPercent = new ArrayList<CountryLanguage>();
-                // Create string for SQL statement
+            // Create string for SQL statement
+            for (String lang : languages) {
                 String strSelect =
-                        "SELECT Percentage, CountryCode " + "FROM countrylanguage WHERE Language = '" + lang +"'";
+                        "SELECT countrylanguage.Language, SUM(countrylanguage.Percentage*country.Population/100), SUM(country.Population) " + "FROM countrylanguage, country WHERE countrylanguage.CountryCode = country.Code " + "AND countrylanguage.Language = '" + lang + "'";
                 // Execute SQL statement
                 ResultSet rset = stmt.executeQuery(strSelect);
+                // Return new country if valid.
+                // Check one is returned
                 while (rset.next()) {
-                    CountryLanguage langPercentage = new CountryLanguage();
-                    langPercentage.setCountryCode(rset.getString("CountryCode"));
-                    langPercentage.setPercentage(rset.getBigDecimal("Percentage"));
-                    langPercent.add(langPercentage);
+                    CountryLanguage cotyLang = new CountryLanguage();
+                    cotyLang.setTotalPopu(BigInteger.valueOf(rset.getInt("SUM(countrylanguage.Percentage*country.Population/100)")));
+                    cotyLang.setLanguage(rset.getString("countrylanguage.Language"));
+                    countryLang.add(cotyLang);
                 }
-
-                // total population of languages
-                for (CountryLanguage language2 : langPercent)
-                {
-                    BigDecimal percentage = language2.getPercentage();
-                    String strSelect1 =
-                            "SELECT Population " + "FROM country WHERE Code = '" + language2.getCountryCode() +"'";
-                    ResultSet rset1 = stmt.executeQuery(strSelect1);
-                    while (rset1.next())
-                    {
-                        BigDecimal popu = rset1.getBigDecimal("Population");
-                        BigDecimal popu1 = percentage.multiply(popu).divide( percent, 2);
-                        population = population.add(popu1);
-                    }
-                }
-                // percent of the population
-                BigDecimal popuPercent = population.multiply(percent).divide(new BigDecimal(totalPopulation), 2);
-                language1.setLanguage(lang);
-                language1.setPopulation(popuPercent);
-                language.add(language1);
             }
-            return language;
+            return countryLang;
 
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country languages details");
+            System.out.println("Failed to get language detail");
             return null;
         }
     }
 
     //**Display Country languages
-    public void displayCountrylanguages(ArrayList<CountryLanguage> language) {
-        if (language == null) {
+    public void displayCountrylanguages(ArrayList<CountryLanguage> countryLang) {
+        if (countryLang == null) {
             System.out.println("No Result");
             return;
         }
-        Collections.sort(language, CountryLanguage.compareLanguage);
-        for (CountryLanguage lang : language) {
+        //Collections.sort(countryLang, CountryLanguage.compareLanguage);
+        for (CountryLanguage lang : countryLang) {
             if (lang == null)
                 continue;
             String langName = lang.getLanguage();
-            BigDecimal population = lang.getPopulation();
-            System.out.println(langName + " is spoken " + population + "% of the world population.");
+            BigInteger percent = new BigInteger("100");
+            BigInteger worldpopu = new BigInteger(worldpopulation());
+            BigInteger population = lang.getTotalPopu().multiply(percent).divide(worldpopu);
+            System.out.println(langName + " is spoken by " + population + "% of the world population.\n");
         }
-        System.out.println("======================================================================");
+        System.out.println("====================================================");
         System.out.println("\n");
     }
 
-    //**The top N populated capital cities in a region where N is provided by the user.
+    //All the capital cities in a continent organised by largest population to smallest.
     public ArrayList<Population> getpplPopuCountry()
     {
         try {
+            // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT Name " + "FROM country";
+                    "SELECT country.Name, SUM(country.Population), SUM(city.Population)" + "FROM city, country WHERE country.Code = city.CountryCode " + "GROUP BY country.Name";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            ArrayList<String> cotyName = new ArrayList<>();
-            ArrayList<Population> pplPopuCoty = new ArrayList<Population>();
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<Population> pplPopuContinent = new ArrayList<Population>();
             while (rset.next()) {
-                cotyName.add(rset.getString("Name"));
+                Population pplPopuCon = new Population();
+                pplPopuCon.setTotal(BigInteger.valueOf(rset.getLong("SUM(country.Population)")));
+                pplPopuCon.setCityPopu(BigInteger.valueOf(rset.getLong("SUM(city.Population)")));
+                pplPopuCon.setName(rset.getString("Name"));
+                pplPopuContinent.add(pplPopuCon);
             }
-            for (String Name : cotyName)
-            {
-                String strSelect1 =
-                        "SELECT Population, Code, Name " + "FROM country WHERE Name = \'" + Name + "\' ";
-                ResultSet rset1 = stmt.executeQuery(strSelect1);
-                while (rset1.next()) {
-                    Population popuName = new Population();
-                    popuName.setName(rset1.getString("Name"));
-                    popuName.setTotal(BigInteger.valueOf(rset1.getInt("Population")));
-                    String Code = rset1.getString("Code");
-                    String strSelect2 =
-                            "SELECT SUM(Population) as totalcityPopu " + "FROM city WHERE CountryCode = \'" + Code + "\' GROUP BY CountryCode";
-                    BigInteger rset2 = getTotalPopu(strSelect2);
-                    popuName.setCityPopu(rset2);
-                    pplPopuCoty.add(popuName);
-                }
-            }
-            return pplPopuCoty;
-
-        } catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city population details");
-            return null;
-        }
-    }
-
-    public BigInteger getTotalPopu(String strSelect2)
-    {
-        try {
-            Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery(strSelect2);
-            BigInteger totalPopu = new BigInteger("0");
-            // taking the value
-            while (rset.next()) {
-                int cityPopu = rset.getInt("totalcityPopu");
-                BigInteger cityPopu1 = BigInteger.valueOf(cityPopu);
-                totalPopu = totalPopu.add(cityPopu1);
-            }
-            return totalPopu;
+            return pplPopuContinent;
 
         } catch (Exception e)
         {
@@ -1147,7 +1091,69 @@ public class App
         }
     }
 
-    //**Display Capital Cities
+    //All the capital cities in a continent organised by largest population to smallest.
+    public ArrayList<Population> getpplPopuContinent()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Continent, SUM(country.Population), SUM(city.Population)" + "FROM city, country WHERE country.Code = city.CountryCode " + "GROUP BY country.Continent";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<Population> pplPopuContinent = new ArrayList<Population>();
+            while (rset.next()) {
+                Population pplPopuCon = new Population();
+                pplPopuCon.setTotal(BigInteger.valueOf(rset.getLong("SUM(country.Population)")));
+                pplPopuCon.setCityPopu(BigInteger.valueOf(rset.getLong("SUM(city.Population)")));
+                pplPopuCon.setName(rset.getString("Continent"));
+                pplPopuContinent.add(pplPopuCon);
+            }
+            return pplPopuContinent;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    //All the capital cities in a continent organised by largest population to smallest.
+    public ArrayList<Population> getpplPopuRegion()
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Region, SUM(country.Population), SUM(city.Population)" + "FROM city, country WHERE country.Code = city.CountryCode " + "GROUP BY country.Region";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            ArrayList<Population> pplPopuContinent = new ArrayList<Population>();
+            while (rset.next()) {
+                Population pplPopuCon = new Population();
+                pplPopuCon.setTotal(BigInteger.valueOf(rset.getLong("SUM(country.Population)")));
+                pplPopuCon.setCityPopu(BigInteger.valueOf(rset.getLong("SUM(city.Population)")));
+                pplPopuCon.setName(rset.getString("Region"));
+                pplPopuContinent.add(pplPopuCon);
+            }
+            return pplPopuContinent;
+
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    //**Display population of people living in the city
     public void displaypplPopuCountry(ArrayList<Population> cityPopu)
     {
         if (cityPopu == null)
@@ -1170,8 +1176,8 @@ public class App
                 BigDecimal percent = new BigDecimal("100");
                 BigDecimal pplinCity = new BigDecimal(pplPopu.getCityPopu()).multiply(percent).divide(new BigDecimal(pplPopu.getTotal()), 2);
                 BigDecimal pplnotinCity = percent.subtract(pplinCity);
-                String city = pplPopu.getName();
-                System.out.println("COUNTRY - " + city);
+                String country = pplPopu.getName();
+                System.out.println("Name - " + country);
                 System.out.println("The total " + pplinCity + "% of people are living in the city.");
                 System.out.println("The total " + pplnotinCity + "% of people are not living in the city.\n");
             }
@@ -1241,7 +1247,9 @@ public class App
         ArrayList<City> capitalregwithlimit = a.getCapitalregwithlimit();
 
         // Get living not living details
-        ArrayList<Population> pplPopucountry = a.getpplPopuCountry();
+        ArrayList<Population> pplPopuCountry = a.getpplPopuCountry();
+        ArrayList<Population> pplPopuContinent = a.getpplPopuContinent();
+        ArrayList<Population> pplPopuRegion = a.getpplPopuRegion();
 
         // Get country languages
         ArrayList<CountryLanguage> ctylang = a.getCountrylanguages();
@@ -1281,7 +1289,9 @@ public class App
         a.citypopulation();
 
         // Display living not living details
-        a.displaypplPopuCountry(pplPopucountry);
+        a.displaypplPopuCountry(pplPopuCountry);
+        a.displaypplPopuCountry(pplPopuContinent);
+        a.displaypplPopuCountry(pplPopuRegion);
 
         // Display country languages
         a.displayCountrylanguages(ctylang);
